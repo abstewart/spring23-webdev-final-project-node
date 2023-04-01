@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "spring23-webdev-final-project-node",
   "version": "1.0.0",
   "description": "A simple node server to support the spring23-webdev-final-project react website",
