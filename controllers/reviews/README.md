@@ -1,0 +1,35 @@
+# Review Data Structure #
+
+This represents a single review for a specific national park.
+
+## Fields ##
+
+### parkID ##
+type: string
+
+ID of the park being reviewed
+
+### author ###
+type: username of author
+
+Who wrote the review
+
+### Rating ###
+type: integer 1-10? (may want to do 1-5 stars, allowing half stars)
+
+### summary ###
+Type: string
+short summary of the review, sorta like a title
+
+### message ###
+Type: string
+
+Actual review contents can go here. This should probably be limited to a certain length.
+
+### likes / liked ###
+
+## Questions to consider ##
+- Should we use a rating as a scale from 1-10? or as just a recommend / not recommend?
+- Is there other fields we should use
+- do we want to have stats for reviews, e.g. likes and/or upvote/downvote
+
