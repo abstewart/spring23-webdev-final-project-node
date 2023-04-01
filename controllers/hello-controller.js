@@ -4,7 +4,7 @@ const HelloController = (app) => {
     res.send('Life is good!')
   });
   app.get('/', (req, res) => {
-    res.send('Welcome to Full Stack Development!')
+    res.send('Welcome to the spring23-webdev-final-project-node server!')
   });
 };
 export default HelloController;
