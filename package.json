@@ -1,0 +1,34 @@
+{
+  "name": "spring23-webdev-final-project-node",
+  "version": "1.0.0",
+  "description": "A simple node server to support the spring23-webdev-final-project react website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "start:watch": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/abstewart/spring23-webdev-final-project-node.git"
+  },
+  "keywords": [
+    "Node",
+    "REST",
+    "HTTP",
+    "Server",
+    "Mongoose"
+  ],
+  "author": "Andrew Briasco-Stewart, Bambi Zhuang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abstewart/spring23-webdev-final-project-node/issues"
+  },
+  "homepage": "https://github.com/abstewart/spring23-webdev-final-project-node#readme",
+  "dependencies": {
+    "axios": "^1.3.4",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3"
+  }
+}
