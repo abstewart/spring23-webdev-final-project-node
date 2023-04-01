@@ -11,19 +11,24 @@ Used for login
 
 ### password ###
 Type: string
+
 Password used for login
 - required for registration
 
 ### first name ###
 Type: string
+
 user's first name
 
 ### last name ###
 Type: string
+
 user's last name
 
 ### email ###
 Type: email
+
+Must be unique
 
 email for user
 
@@ -38,7 +43,9 @@ Defaults to user
 
 
 ## Questions to consider ##
-Should preferences be stored in the user? Or as a separate collection in the database?
+- admin might be able to make other admin accounts?
+- Should preferences be stored in the user? Or as a separate collection in the database?
+- All fields required
 
 
 

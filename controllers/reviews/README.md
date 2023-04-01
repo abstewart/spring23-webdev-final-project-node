@@ -29,7 +29,6 @@ Actual review contents can go here. This should probably be limited to a certain
 ### likes / liked ###
 
 ## Questions to consider ##
-- Should we use a rating as a scale from 1-10? or as just a recommend / not recommend?
-- Is there other fields we should use
-- do we want to have stats for reviews, e.g. likes and/or upvote/downvote
+- 1-10 scale
+- just likes
 
