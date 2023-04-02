@@ -26,7 +26,18 @@ Type: string
 
 Actual review contents can go here. This should probably be limited to a certain length.
 
-### likes / liked ###
+### likes ###
+
+The number of likes for this review
+
+### creation_date ###
+
+The date review was created, uses Date.now as default
+
+### hidden ###
+
+boolean flag for if this review should be hidden. may not be used.
+defaults to false
 
 ## Questions to consider ##
 - 1-10 scale
