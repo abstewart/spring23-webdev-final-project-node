@@ -8,7 +8,7 @@ const schema = mongoose.Schema({
   email: {type: String, unique: true},
   role: {type: String, default: "USER", enum: ["USER", "ADMIN"]},
   creation_date: {type: Date, default: Date.now},
-  liked_reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'review'}]
+  liked_reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'reviews'}]
 }, {collection: 'users'});
 
 export default schema;
