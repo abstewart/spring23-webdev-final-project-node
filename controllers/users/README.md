@@ -41,6 +41,9 @@ Is this user an admin?
 
 Defaults to user
 
+### liked_reviews ###
+A list of review ids the user has liked. Used to mark review as liked or not.
+
 
 ## Questions to consider ##
 - admin might be able to make other admin accounts?
