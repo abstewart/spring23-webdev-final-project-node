@@ -5,7 +5,6 @@ const ex_user = {
   last_name: "Smith",
   email: "jsmith@gmail.com",
   role: "ADMIN",
-  liked_reviews: []
 }
-
+//liked_reviews: []
 //liked reivews is a list of review id's from the database

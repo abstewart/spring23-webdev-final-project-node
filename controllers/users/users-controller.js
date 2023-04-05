@@ -3,28 +3,34 @@ import * as usersDao from './users-dao.js';
 let currentUser = null;
 const UsersController = (app) => {
   const findAllusers = async(req, res) => {
+    console.log("findAllUsers called");
     const users = await usersDao.findAllUsers();
     res.json(users);
   };
   const findUserById = async(req, res) => {
+    console.log("findUserById called");
     const user = usersDao.findUserById(req.params.id);
     res.json(user);
   };
   const deleteUserById = async(req, res) => {
+    console.log("deleteUserById called");
     const status = await usersDao.deleteUser(req.params.id);
     res.send(status);
   };
   const createUser = async(req, res) => {
+    console.log("createUser called");
     const user = req.body;
     const newUser = await usersDao.createUser(user);
     res.json(newUser);
   };
   const updateUser = async(req, res) => {
+    console.log("updateUser called");
     const user = req.body;
     const status = await usersDao.updateUser(req.params.id, user);
     res.send(status);
   };
   const login = async(req, res) => {
+    console.log("login called");
     const user = await usersDao.findUserByCredentials(req.body);
     //if user exists, login
     if(user){
@@ -35,6 +41,7 @@ const UsersController = (app) => {
     }
   };
   const logout = async(req, res) => {
+    console.log("logout called");
     currentUser = null;
     res.sendStatus(200);
   };
@@ -43,6 +50,7 @@ const UsersController = (app) => {
   //and the reviews?
 //const profile = async(req, res) => {};
   const register = async(req, res) => {
+    console.log("register called");
     const user = req.body;
     const existingUser = await usersDao.findUserByUsername(user.username);
     if (existingUser) {
