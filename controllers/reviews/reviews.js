@@ -4,7 +4,6 @@ const ex_review = {
   rating: 7,
   summary: "Great starter park!",
   message: "Lovely park to visit. Had a blast with the fam!.",
-  likes: 20
 }
 //liked: true,
 
