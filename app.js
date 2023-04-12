@@ -21,7 +21,7 @@ const app = express();
 
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:3000', 'https://celebrated-souffle-0b61bd.netlify.app/']
+  origin: ['http://localhost:3000', 'https://celebrated-souffle-0b61bd.netlify.app']
 }))
 
 
