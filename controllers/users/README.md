@@ -51,4 +51,9 @@ A list of review ids the user has liked. Used to mark review as liked or not.
 - All fields required
 
 
+### Other stuff ###
+User should be able to like a park
+User should be able to like a review (essentially an upvote)
+
+
 
