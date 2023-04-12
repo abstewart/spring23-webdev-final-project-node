@@ -8,6 +8,7 @@
 //generalSearch
 //localhost:4000/api/parks/search?stateCode=ca&searchTerm=redwood
 
+import axios from "axios";
 
 const NpsApiController = (app) => {
   const API_KEY = process.env.NPS_API_KEY;
@@ -18,10 +19,9 @@ const NpsApiController = (app) => {
     console.log("getParkDetails");
 
     const parkId = req.params.parkId;
-    const response = await fetch(`${API_BASE}/parks?parkCode=${parkId}&api_key=${API_KEY}`);
-    const park = await response.json();
+    const response = await axios.get(`${API_BASE}/parks?parkCode=${parkId}&api_key=${API_KEY}`);
     //console.log(park);
-    res.json(park);
+    res.json(response.data);
   }
 
   const generalSearch = async (req, res) => {
@@ -43,11 +43,10 @@ const NpsApiController = (app) => {
     url += `&limit=${RESPONSE_LIMIT}`
     //console.log(url);
     //make the API call with the above, depending on if stateCode exists
-    const response = await fetch(`${url}&api_key=${API_KEY}`);
-    const parks = await response.json();
+    const response = await axios.get(`${url}&api_key=${API_KEY}`);
     //console.log(parks)
     //return to user
-    res.json(parks);
+    res.json(response.data);
   }
 
 
