@@ -20,7 +20,7 @@ const NpsApiController = (app) => {
     const parkId = req.params.parkId;
     const response = await fetch(`${API_BASE}/parks?parkCode=${parkId}&api_key=${API_KEY}`);
     const park = await response.json();
-    console.log(park);
+    //console.log(park);
     res.json(park);
   }
 
@@ -41,7 +41,7 @@ const NpsApiController = (app) => {
     }
     //add on limit of 25
     url += `&limit=${RESPONSE_LIMIT}`
-    console.log(url);
+    //console.log(url);
     //make the API call with the above, depending on if stateCode exists
     const response = await fetch(`${url}&api_key=${API_KEY}`);
     const parks = await response.json();

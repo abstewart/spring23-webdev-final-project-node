@@ -1,6 +1,9 @@
 import * as usersDao from './users-dao.js';
 
-let currentUser = null;
+//let currentUser = null;
+//todo make profile function?
+//todo look at profile screen stuff?
+
 const UsersController = (app) => {
   const findAllusers = async(req, res) => {
     console.log("findAllUsers called");
@@ -33,8 +36,9 @@ const UsersController = (app) => {
     console.log("login called");
     const user = await usersDao.findUserByCredentials(req.body);
     //if user exists, login
+    //await new Promise(resolve => setTimeout(resolve, 5000))
     if(user){
-      currentUser = user;
+      req.session["currentUser"] = user; //dot notation is fine too
       res.json(user);
     } else {
       res.sendStatus(401);
@@ -42,13 +46,20 @@ const UsersController = (app) => {
   };
   const logout = async(req, res) => {
     console.log("logout called");
-    currentUser = null;
+    req.session.destroy();
     res.sendStatus(200);
   };
 
   //could provide the user and the liked reviews?
   //and the reviews?
-//const profile = async(req, res) => {};
+  const getCurrentUser = async(req, res) => {
+    const user = req.session.currentUser;
+    if(user){
+      res.json(user);
+    } else {
+      res.json(null);
+    }
+  };
   const register = async(req, res) => {
     console.log("register called");
     const user = req.body;
@@ -58,20 +69,20 @@ const UsersController = (app) => {
       return;
     }
     const newUser = await usersDao.createUser(user);
-    currentUser = newUser;
+    req.session.currentUser = newUser;
     res.json(newUser);
   };
 
   //create endpoints
   app.get("/api/users", findAllusers);
-  app.get("/api/users/:id", findUserById);
+  app.get("/api/users/id/:id", findUserById);
   app.delete("/api/users/:id", deleteUserById);
   app.post("/api/users", createUser);
   app.put("/api/users/:id", updateUser)
   //other endpoints
   app.post("/api/users/login", login);
   app.post("/api/users/logout", logout);
-  //app.get("/api/users/profile", profile);
+  app.get("/api/users/currentUser", getCurrentUser);
   app.post("/api/users/register", register);
 
 
