@@ -1,13 +1,58 @@
-//endpoints to support
-// /parks
-
-//get a search string and pass it to the API call
-// return what's given back
-
-
-//search by ID
-
-
-//may limit resuts to 25?
 //documentation:
 //https://www.nps.gov/subjects/developer/api-documentation.htm#/parks/getPark
+
+//example calls to this api:
+//getParkDetails
+//localhost:4000/api/parks/getPark/acad
+
+//generalSearch
+//localhost:4000/api/parks/search?stateCode=ca&searchTerm=redwood
+
+
+const NpsApiController = (app) => {
+  const API_KEY = process.env.NPS_API_KEY;
+  const API_BASE = "https://developer.nps.gov/api/v1";
+  const RESPONSE_LIMIT = 25;
+  //expecting parkId in the request url
+  const getParkDetails = async (req, res) => {
+    console.log("getParkDetails");
+
+    const parkId = req.params.parkId;
+    const response = await fetch(`${API_BASE}/parks?parkCode=${parkId}&api_key=${API_KEY}`);
+    const park = await response.json();
+    console.log(park);
+    res.json(park);
+  }
+
+  const generalSearch = async (req, res) => {
+    //e.g. /api/parks/search?stateCode=ma&searchTerm=red
+    //parse out the params in the search
+    console.log("generalSearch");
+    let url = API_BASE + "/parks?"
+    const stateCode = req.query.stateCode;
+    url += "stateCode=";
+    if(stateCode){
+      url += stateCode;
+    }
+    url += "&q=";
+    const sTerm = req.query.searchTerm;
+    if(sTerm){
+      url+=sTerm;
+    }
+    //add on limit of 25
+    url += `&limit=${RESPONSE_LIMIT}`
+    console.log(url);
+    //make the API call with the above, depending on if stateCode exists
+    const response = await fetch(`${url}&api_key=${API_KEY}`);
+    const parks = await response.json();
+    //console.log(parks)
+    //return to user
+    res.json(parks);
+  }
+
+
+  app.get("/api/parks/getPark/:parkId", getParkDetails);
+  app.get("/api/parks/search", generalSearch)
+}
+export default NpsApiController;
+
