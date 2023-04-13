@@ -28,8 +28,8 @@ export const createReview = async (review) => {
 
 //Update given review in the database.
 //Returns a status.
-export const updateReview = async (reviewId) => {
-  const status = reviewsModel.updateOne({_id: reviewId});
+export const updateReview = async (reviewId, review) => {
+  const status = reviewsModel.updateOne({_id: reviewId}, review);
   return status;
 };
 
@@ -39,19 +39,4 @@ export const deleteReview = async (reviewId) => {
   const status = reviewsModel.deleteOne({_id: reviewId});
   return status;
 };
-
-//Increment the likes field of a specified review by 1.
-//Returns the entire review affected.
-export const incLikes = async (reviewId) => {
-  const review = await reviewsModel.findOneAndUpdate({_id: reviewId}, {$inc: {'likes': 1}});
-  return review;
-};
-
-//Decrement the likes field of a specified review by 1.
-//Returns the entire review affected.
-export const decLikes = async (reviewId) => {
-  const review = await reviewsModel.findOneAndUpdate({_id: reviewId}, {$inc: {'likes': -1}});
-  return review;
-};
-
 
