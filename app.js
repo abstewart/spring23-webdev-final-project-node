@@ -31,17 +31,18 @@ app.use(express.json());
 let sess = {
   secret: "secret",
   resave: true,
-  cookie: {secure: false },
+  // cookie: {secure: false },
   saveUninitialized: true,
 }
 //todo fix this
 if (process.env.ENV === 'production') {
+  console.log("in production")
   app.set('trust proxy', 1)
   //sess cookie secure stuff
-  sess = {
-    ...sess,
-    cookie: {secure: true}
-  }
+  // sess = {
+  //   ...sess,
+  //   cookie: {secure: true}
+  // }
 }
 
 //using this session for now
