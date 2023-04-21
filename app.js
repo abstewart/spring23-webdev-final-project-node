@@ -8,6 +8,8 @@ import HelloController from "./controllers/hello-controller.js";
 import UsersController from "./controllers/users/users-controller.js";
 import NpsApiController from "./controllers/nps-api/nps-api-controller.js"
 import ReviewsController from "./controllers/reviews/reviews-controller.js";
+import ReviewLikesController
+  from "./controllers/reviewLikes/reviewLikes-controller.js";
 
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
  || 'mongodb://127.0.0.1:27017/spring23-webdev-final-project';
@@ -53,6 +55,7 @@ HelloController(app);
 UsersController(app);
 NpsApiController(app);
 ReviewsController(app);
+ReviewLikesController(app);
 
 //tell the app to listen on port 4000, or defined port via environment var
 app.listen(process.env.PORT || 4000);
