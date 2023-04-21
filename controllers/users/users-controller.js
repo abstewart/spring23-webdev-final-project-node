@@ -55,6 +55,8 @@ const UsersController = (app) => {
   const getCurrentUser = async(req, res) => {
     console.log("currentUser called");
     const user = req.session.currentUser;
+    console.log("req.session.currentUser")
+    console.log(user);
     if(user){
       res.json(user);
     } else {
