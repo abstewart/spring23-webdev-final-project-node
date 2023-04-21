@@ -32,7 +32,7 @@ let sess = {
   secret: "secret",
   resave: true,
   cookie: {secure: false },
-  saveUnitialized: true,
+  saveUninitialized: true,
 }
 //todo fix this
 if (process.env.ENV === 'production') {
