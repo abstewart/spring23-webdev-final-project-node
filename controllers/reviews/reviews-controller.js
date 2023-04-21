@@ -1,5 +1,4 @@
 import * as reviewsDao from './reviews-dao.js'
-import usersController from "../users/users-controller.js";
 
 const ReviewsController = (app) => {
   const findAllReviews = async (req, res) => {
@@ -35,10 +34,17 @@ const ReviewsController = (app) => {
     res.send(status);
   }
 
+  const mostRecentReview = async (req, res) => {
+    console.log("mostRecentReview called");
+    const review = await reviewsDao.findMostRecentReview();
+    res.send(review);
+  }
+
 
   app.get("/api/reviews", findAllReviews);
   app.get("/api/reviews/user/:id", findReviewsByUser)
   app.get("/api/reviews/park/:parkId", findReviewsByPark);
+  app.get("/api/reviews/recent", mostRecentReview);
   app.post("/api/reviews", createReview);
   app.put("/api/reviews", updateReview);
   app.delete("/api/reviews/:id", deleteReview);

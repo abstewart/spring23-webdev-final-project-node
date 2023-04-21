@@ -40,3 +40,9 @@ export const deleteReview = async (reviewId) => {
   return status;
 };
 
+export const findMostRecentReview = async () => {
+  const review = reviewsModel.findOne({}, {}, { sort: { 'created_at' : -1 } })
+  return review;
+
+}
+
