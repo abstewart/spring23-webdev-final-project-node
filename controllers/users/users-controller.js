@@ -1,7 +1,6 @@
 import * as usersDao from './users-dao.js';
 
 //let currentUser = null;
-//todo make profile function?
 //todo look at profile screen stuff?
 
 const UsersController = (app) => {
@@ -37,6 +36,7 @@ const UsersController = (app) => {
     const user = await usersDao.findUserByCredentials(req.body);
     //if user exists, login
     //await new Promise(resolve => setTimeout(resolve, 5000))
+    console.log(user);
     if(user){
       req.session["currentUser"] = user; //dot notation is fine too
       res.json(user);
@@ -53,6 +53,7 @@ const UsersController = (app) => {
   //could provide the user and the liked reviews?
   //and the reviews?
   const getCurrentUser = async(req, res) => {
+    console.log("currentUser called");
     const user = req.session.currentUser;
     if(user){
       res.json(user);
