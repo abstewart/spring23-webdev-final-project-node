@@ -30,18 +30,24 @@ const NpsApiController = (app) => {
     console.log("generalSearch");
     let url = API_BASE + "/parks?"
     const stateCode = req.query.stateCode;
-    url += "stateCode=";
+    const stateCodeStr = `stateCode=${stateCode}`;
+    //console.log("stateCode: " + stateCode);
     if(stateCode){
-      url += stateCode;
+      url += stateCodeStr;
     }
-    url += "&q=";
     const sTerm = req.query.searchTerm;
+    const sTermStr = `q=${sTerm}`;
+    //console.log("searchTerm: " + sTerm);
     if(sTerm){
-      url+=sTerm;
+      //add teh & if needed
+      if(stateCode){
+        url += '&'
+      }
+      url+=sTermStr;
     }
     //add on limit of 25
     url += `&limit=${RESPONSE_LIMIT}`
-    //console.log(url);
+    console.log("searching: " + url);
     //make the API call with the above, depending on if stateCode exists
     const response = await axios.get(`${url}&api_key=${API_KEY}`);
     //console.log(parks)
