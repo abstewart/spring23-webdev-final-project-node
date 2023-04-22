@@ -18,14 +18,12 @@ const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
 mongoose.connect(CONNECTION_STRING);
 const app = express();
 
-//todo fix the secret
 let sess = {
-  secret: "2023webdevspring",
+  secret: process.env.SESSION_SECRET,
   resave: false,
   cookie: {secure: false },
   saveUninitialized: true,
 }
-//todo fix this
 if (process.env.ENV === 'production') {
   console.log("in production")
   app.set('trust proxy', 1)
@@ -33,7 +31,6 @@ if (process.env.ENV === 'production') {
   sess.cookie.sameSite = 'none';
 }
 
-//using this session for now
 app.use(session(sess));
 app.use(cors({
   credentials: true,
