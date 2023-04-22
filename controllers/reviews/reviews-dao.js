@@ -9,7 +9,7 @@ export  const findAllReviews = async () => {
 
 //find all the reviews for a specific park and sort by likes
 export const findReviewsByPark = async (parkId) => {
-  const reviews = reviewsModel.find({parkId}).sort({likes : -1});
+  const reviews = reviewsModel.find({parkId, hidden: {$ne: true}}).sort({likes : -1});
   return reviews;
 };
 
@@ -41,7 +41,7 @@ export const deleteReview = async (reviewId) => {
 };
 
 export const findMostRecentReview = async () => {
-  const review = reviewsModel.findOne({}, {}, { sort: { 'creation_date' : -1 } })
+  const review = reviewsModel.findOne({hidden: {$ne: true}}, {}, { sort: { 'creation_date' : -1 } })
   return review;
 
 }
