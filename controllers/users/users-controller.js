@@ -21,14 +21,23 @@ const UsersController = (app) => {
   const createUser = async(req, res) => {
     console.log("createUser called");
     const user = req.body;
-    const newUser = await usersDao.createUser(user);
-    res.json(newUser);
+    try{
+      const newUser = await usersDao.createUser(user);
+      res.json(newUser);
+    } catch (err) {
+      res.sendStatus(400);
+    }
   };
   const updateUser = async(req, res) => {
     console.log("updateUser called");
     const user = req.body;
-    const status = await usersDao.updateUser(req.params.id, user);
-    res.send(status);
+    try{
+      const status = await usersDao.updateUser(req.params.id, user);
+      res.send(status);
+    } catch (err) {
+      console.log(err);
+      res.send(400);
+    }
   };
   const login = async(req, res) => {
     console.log("login called");
@@ -48,12 +57,9 @@ const UsersController = (app) => {
     res.sendStatus(200);
   };
 
-  //could provide the user and the liked reviews?
-  //and the reviews?
   const getCurrentUser = async(req, res) => {
     console.log("currentUser called");
     const user = req.session.currentUser;
-    console.log("req.session.currentUser")
     console.log(user);
     if(user){
       res.json(user);
@@ -64,14 +70,21 @@ const UsersController = (app) => {
   const register = async(req, res) => {
     console.log("register called");
     const user = req.body;
+    console.log(user);
     const existingUser = await usersDao.findUserByUsername(user.username);
     if (existingUser) {
       res.sendStatus(409);
       return;
     }
-    const newUser = await usersDao.createUser(user);
-    req.session.currentUser = newUser;
-    res.json(newUser);
+    try{
+      const newUser = await usersDao.createUser(user);
+      req.session.currentUser = newUser;
+      res.json(newUser);
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    }
   };
 
   //create endpoints
