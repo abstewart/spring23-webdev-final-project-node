@@ -18,39 +18,28 @@ const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
 mongoose.connect(CONNECTION_STRING);
 const app = express();
 
-//Put app.use lines here
-
-//app.use(cors());
-
-//todo fix cors, can have multiple domains
-
-app.use(cors({
-  credentials: true,
-  origin: ['http://localhost:3000', 'https://celebrated-souffle-0b61bd.netlify.app']
-}))
-
-
-app.use(express.json());
 //todo fix the secret
 let sess = {
-  secret: "secret",
-  resave: true,
-  // cookie: {secure: false },
+  secret: "2023webdevspring",
+  resave: false,
+  cookie: {secure: false },
   saveUninitialized: true,
 }
 //todo fix this
 if (process.env.ENV === 'production') {
   console.log("in production")
   app.set('trust proxy', 1)
-  //sess cookie secure stuff
-  // sess = {
-  //   ...sess,
-  //   cookie: {secure: true}
-  // }
+  sess.cookie.secure = true;
+  sess.cookie.sameSite = 'none';
 }
 
 //using this session for now
-app.use(session(sess))
+app.use(session(sess));
+app.use(cors({
+  credentials: true,
+  origin: ['http://localhost:3000', 'https://celebrated-souffle-0b61bd.netlify.app']
+}));
+app.use(express.json());
 
 //pass app to different controllers here
 HelloController(app);
