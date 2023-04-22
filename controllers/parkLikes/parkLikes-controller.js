@@ -51,7 +51,7 @@ const ParkLikesController = (app) => {
   app.get("/api/parkLikes", findAllParkLikes);//default
   app.get("/api/parkLikes/byUser/:username", likedParks);
   app.get("/api/parkLikes/whoLiked/:review", whoLiked);
-  app.get("/api/parkLikes/numLikedReview/:review", numLikesForPark);
+  app.get("/api/parkLikes/numLikedPark/:review", numLikesForPark);
   app.get("/api/parkLikes/numLikedUsername/:username", numParksLikedByUser);
   app.delete("/api/parkLikes/:id", deleteParkLike);
   app.delete("/api/parkLikes/:username/:review", deleteParkLikeByParams);
