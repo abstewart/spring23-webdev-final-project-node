@@ -9,6 +9,7 @@ const ReviewLikesController = (app) => {
   };
   const likedReviews = async (req, res) => {
     console.log("likedReviewsByUsername called");
+    const {username} = req.session.currentUser;
     const reviews = await reviewLikesDao.likesByUsername(req.params.username);
     res.json(reviews);
   };
@@ -24,6 +25,7 @@ const ReviewLikesController = (app) => {
   };
   const numReviewsLikedByUser = async (req, res) => {
     console.log("numReviewsLikedbyUser called");
+    const {username} = req.session.currentUser;
     const numLikes = await reviewLikesDao.numLikesByUsername(req.params.username);
     res.json({numLikes});
   };
@@ -34,24 +36,26 @@ const ReviewLikesController = (app) => {
   };
   const deleteReviewLikeByParams = async (req, res) => {
     console.log("deleteReviewLikeByParams called");
-    const status = await reviewLikesDao.deleteLikeByParams(req.params.username, req.params.review)
+    const {username} = req.session.currentUser;
+    const status = await reviewLikesDao.deleteLikeByParams(username, req.params.review)
     res.send(status);
   }
   const createReviewLike = async (req, res) => {
     console.log("createReviewLike called");
-    const like = req.body;
-    const newLike = await reviewLikesDao.createLike(like);
+    const {username} = req.session.currentUser;
+    const rl = {username, review: req.params.review};
+    const newLike = await reviewLikesDao.createLike(rl);
     res.json(newLike);
   };
 
 
   app.get("/api/reviewLikes", findAllReviewLikes);//default
-  app.get("/api/reviewLikes/byUser/:username", likedReviews);
+  app.get("/api/reviewLikes/byUser", likedReviews);
   app.get("/api/reviewLikes/whoLiked/:review", whoLiked);
   app.get("/api/reviewLikes/numLikedReview/:review", numLikesForReview);
-  app.get("/api/reviewLikes/numLikedUsername/:username", numReviewsLikedByUser);
+  app.get("/api/reviewLikes/numLikedUsername", numReviewsLikedByUser);
   app.delete("/api/reviewLikes/:id", deleteReviewLike);
-  app.delete("/api/reviewLikes/:username/:review", deleteReviewLikeByParams);
-  app.post("/api/reviewLikes", createReviewLike);
+  app.delete("/api/reviewLikes/reviewId/:review", deleteReviewLikeByParams);
+  app.post("/api/reviewLikes/:review", createReviewLike);
 }
 export default ReviewLikesController;
