@@ -1,6 +1,5 @@
 import * as usersDao from './users-dao.js';
 
-//let currentUser = null;
 //todo look at profile screen stuff?
 
 const UsersController = (app) => {
@@ -35,10 +34,9 @@ const UsersController = (app) => {
     console.log("login called");
     const user = await usersDao.findUserByCredentials(req.body);
     //if user exists, login
-    //await new Promise(resolve => setTimeout(resolve, 5000))
     console.log(user);
     if(user){
-      req.session["currentUser"] = user; //dot notation is fine too
+      req.session.currentUser = user; //dot notation is fine too
       res.json(user);
     } else {
       res.sendStatus(401);

@@ -8,7 +8,8 @@ const ParkLikesController = (app) => {
   };
   const likedParks = async (req, res) => {
     console.log("likedParks with username called");
-    const parks = await parkLikesDao.parksLikedByUsername(req.params.username);
+    const {username} = req.session.currentUser;
+    const parks = await parkLikesDao.parksLikedByUsername(username);
     res.json(parks);
 
   };
@@ -24,7 +25,8 @@ const ParkLikesController = (app) => {
   };
   const numParksLikedByUser = async (req, res) => {
     console.log("numParksLikedByUser called");
-    const numLikes = await parkLikesDao.numLikesByUsername(req.params.username);
+    const {username} = req.session.currentUser;
+    const numLikes = await parkLikesDao.numLikesByUsername(username);
     res.json({numLikes});
   };
 
@@ -35,26 +37,28 @@ const ParkLikesController = (app) => {
   };
   const deleteParkLikeByParams = async (req, res) => {
     console.log("deleteParkLikeByParams called");
-    const status = await parkLikesDao.deleteLikeByParams(req.params.username, req.params.park);
+    const {username} = req.session.currentUser;
+    const status = await parkLikesDao.deleteLikeByParams(username, req.params.park);
     res.send(status);
 
   };
 
   const createParkLike = async (req, res) => {
     console.log("createParkLike called");
-    const like = req.body;
-    const newLike = await parkLikesDao.createLike(like);
+    const {username} = req.session.currentUser;
+    const pl = {username, park: req.params.park}
+    const newLike = await parkLikesDao.createLike(pl);
     res.json(newLike);
   };
 
 
   app.get("/api/parkLikes", findAllParkLikes);//default
-  app.get("/api/parkLikes/byUser/:username", likedParks);
+  app.get("/api/parkLikes/byUser", likedParks);
   app.get("/api/parkLikes/whoLiked/:park", whoLiked);
   app.get("/api/parkLikes/numLikedPark/:park", numLikesForPark);
-  app.get("/api/parkLikes/numLikedUsername/:username", numParksLikedByUser);
+  app.get("/api/parkLikes/numUserLiked", numParksLikedByUser);
   app.delete("/api/parkLikes/:id", deleteParkLike);
-  app.delete("/api/parkLikes/:username/:park", deleteParkLikeByParams);
-  app.post("/api/parkLikes", createParkLike);
+  app.delete("/api/parkLikes/parkId/:park", deleteParkLikeByParams);
+  app.post("/api/parkLikes/:park", createParkLike);
 }
 export default ParkLikesController;
