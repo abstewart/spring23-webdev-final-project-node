@@ -13,10 +13,20 @@ const ParkLikesController = (app) => {
 
   };
   const likedParks = async (req, res) => {
-    console.log("likedParks with username called");
+    console.log("likedParks for logged in user called");
     const {username} = req.session.currentUser;
     try{
       const parks = await parkLikesDao.parksLikedByUsername(username);
+      res.json(parks);
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
+  };
+  const likedParksUsername = async (req, res) => {
+    console.log("likedParks with username called");
+    try{
+      const parks = await parkLikesDao.parksLikedByUsername(req.params.userId);
       res.json(parks);
     } catch (err) {
       console.log(err.message);
@@ -94,6 +104,7 @@ const ParkLikesController = (app) => {
 
   app.get("/api/parkLikes", findAllParkLikes);//default
   app.get("/api/parkLikes/byUser", likedParks);
+  app.get("/api/parkLikes/byUsername/:userId", likedParksUsername)
   app.get("/api/parkLikes/whoLiked/:park", whoLiked);
   app.get("/api/parkLikes/numLikedPark/:park", numLikesForPark);
   app.get("/api/parkLikes/numUserLiked", numParksLikedByUser);
