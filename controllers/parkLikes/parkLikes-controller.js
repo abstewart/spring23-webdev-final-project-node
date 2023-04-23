@@ -15,12 +15,22 @@ const ParkLikesController = (app) => {
   };
   const whoLiked = async (req, res) => {
     console.log("whoLiked with park called");
-    const usernames = await parkLikesDao.usersWhoLikedPark(req.params.park);
+    let usernames = null;
+    try{
+      usernames = await parkLikesDao.usersWhoLikedPark(req.params.park);
+    } catch (err){
+      console.log(err.message);
+    }
     res.json(usernames);
   };
   const numLikesForPark = async (req, res) => {
     console.log("numLikesForPark called");
-    const numLikes = await parkLikesDao.numLikesByPark(req.params.park);
+    let numLikes = 0;
+    try {
+      numLikes = await parkLikesDao.numLikesByPark(req.params.park);
+    } catch (err) {
+      console.log(err.message);
+    }
     res.json({numLikes});
   };
   const numParksLikedByUser = async (req, res) => {

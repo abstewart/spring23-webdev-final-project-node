@@ -15,12 +15,23 @@ const ReviewLikesController = (app) => {
   };
   const whoLiked = async (req, res) => {
     console.log("whoLiked called");
-    const usernames = await reviewLikesDao.usersWhoLikedReview(req.params.review);
+    let usernames = null;
+    try {
+      usernames = await reviewLikesDao.usersWhoLikedReview(req.params.review);
+    } catch (err) {
+      console.log(err.message);
+    }
     res.json(usernames);
   };
   const numLikesForReview = async (req, res) => {
     console.log("numLikesForReview called");
-    const numLikes = await reviewLikesDao.numLikesByReview(req.params.review);
+    let numLikes = 0;
+    try{
+      numLikes = await reviewLikesDao.numLikesByReview(req.params.review);
+    } catch (err) {
+      console.log(err.message)
+    }
+    console.log("likes found: " + numLikes);
     res.json({numLikes});
   };
   const numReviewsLikedByUser = async (req, res) => {
