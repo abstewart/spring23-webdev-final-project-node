@@ -3,62 +3,92 @@ import * as parkLikesDao from './parkLikes-dao.js';
 const ParkLikesController = (app) => {
   const findAllParkLikes = async (req, res) => {
     console.log("findAllParkLikes called");
-    const parkLikes = await parkLikesDao.findAllLikes();
-    res.json(parkLikes);
+    try{
+      const parkLikes = await parkLikesDao.findAllLikes();
+      res.json(parkLikes);
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
+
   };
   const likedParks = async (req, res) => {
     console.log("likedParks with username called");
     const {username} = req.session.currentUser;
-    const parks = await parkLikesDao.parksLikedByUsername(username);
-    res.json(parks);
-
+    try{
+      const parks = await parkLikesDao.parksLikedByUsername(username);
+      res.json(parks);
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
   };
   const whoLiked = async (req, res) => {
     console.log("whoLiked with park called");
-    let usernames = null;
     try{
-      usernames = await parkLikesDao.usersWhoLikedPark(req.params.park);
+      const usernames = await parkLikesDao.usersWhoLikedPark(req.params.park);
+      res.json(usernames);
     } catch (err){
       console.log(err.message);
+      res.sendStatus(500);
     }
-    res.json(usernames);
   };
   const numLikesForPark = async (req, res) => {
     console.log("numLikesForPark called");
-    let numLikes = 0;
     try {
-      numLikes = await parkLikesDao.numLikesByPark(req.params.park);
+      const numLikes = await parkLikesDao.numLikesByPark(req.params.park);
+      res.json({numLikes});
     } catch (err) {
       console.log(err.message);
+      res.sendStatus(500);
     }
-    res.json({numLikes});
   };
   const numParksLikedByUser = async (req, res) => {
     console.log("numParksLikedByUser called");
     const {username} = req.session.currentUser;
-    const numLikes = await parkLikesDao.numLikesByUsername(username);
-    res.json({numLikes});
+    try{
+      const numLikes = await parkLikesDao.numLikesByUsername(username);
+      res.json({numLikes});
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
   };
 
   const deleteParkLike = async (req, res) => {
     console.log("deleteParkLike called");
-    const status = await parkLikesDao.deleteLike(req.params.id);
-    res.send(status);
+    try{
+      const status = await parkLikesDao.deleteLike(req.params.id);
+      res.send(status);
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
+
   };
   const deleteParkLikeByParams = async (req, res) => {
     console.log("deleteParkLikeByParams called");
     const {username} = req.session.currentUser;
-    const status = await parkLikesDao.deleteLikeByParams(username, req.params.park);
-    res.send(status);
-
+    try{
+      const status = await parkLikesDao.deleteLikeByParams(username, req.params.park);
+      res.send(status);
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
   };
 
   const createParkLike = async (req, res) => {
     console.log("createParkLike called");
     const {username} = req.session.currentUser;
     const pl = {username, park: req.params.park}
-    const newLike = await parkLikesDao.createLike(pl);
-    res.json(newLike);
+    try{
+      const newLike = await parkLikesDao.createLike(pl);
+      res.json(newLike);
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
   };
 
 
