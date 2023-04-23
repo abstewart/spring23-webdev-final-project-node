@@ -3,41 +3,76 @@ import * as reviewsDao from './reviews-dao.js'
 const ReviewsController = (app) => {
   const findAllReviews = async (req, res) => {
     console.log("findAllReviews called");
-    const reviews = await reviewsDao.findAllReviews();
-    res.json(reviews);
+    try {
+      const reviews = await reviewsDao.findAllReviews();
+      res.json(reviews);
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
   }
   const findReviewsByPark = async (req, res) => {
     console.log("findReviewsByPark called");
-    const reviews = await reviewsDao.findReviewsByPark(req.params.parkId)
-    res.json(reviews);
+    try {
+      const reviews = await reviewsDao.findReviewsByPark(req.params.parkId)
+      res.json(reviews);
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
   }
   const findReviewsByUser = async (req, res) => {
     console.log("findReviewsByUser called");
-    const reviews = await reviewsDao.findReviewsByUser(req.params.id);
-    res.json(reviews);
+    try {
+      const reviews = await reviewsDao.findReviewsByUser(req.params.id);
+      res.json(reviews);
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
   }
   const createReview = async (req, res) => {
     console.log("createReview called");
     const review = req.body;
-    const newReview = await reviewsDao.createReview(review);
-    res.json(newReview);
+    try {
+      const newReview = await reviewsDao.createReview(review);
+      res.json(newReview);
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
   }
   const updateReview = async (req, res) => {
     console.log("updateReview called");
     const review = req.body;
-    const status = await reviewsDao.updateReview(req.body._id, review);
-    res.send(status);
+    try {
+      const status = await reviewsDao.updateReview(req.body._id, review);
+      res.send(status);
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
   }
   const deleteReview = async (req, res) => {
     console.log("deleteReview called");
-    const status = await reviewsDao.deleteReview(req.params.id);
-    res.send(status);
+    try {
+      const status = await reviewsDao.deleteReview(req.params.id);
+      res.send(status);
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
   }
 
   const mostRecentReview = async (req, res) => {
     console.log("mostRecentReview called");
-    const review = await reviewsDao.findMostRecentReview();
-    res.send(review);
+    try {
+      const review = await reviewsDao.findMostRecentReview();
+      res.send(review);
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
   }
 
 
