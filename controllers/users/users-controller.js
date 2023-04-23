@@ -47,10 +47,12 @@ const UsersController = (app) => {
     console.log("updateUser called");
     const user = req.body;
     console.log(user);
-    console.log(req.params.id);
+    const userId = req.session.currentUser._id;
+    console.log(userId);
     try{
-      const status = await usersDao.updateUser(req.params.id, user);
+      const status = await usersDao.updateUser(userId, user);
       res.send(status);
+      req.session.currentUser = {...req.session.currentUser, ...user};
     } catch (err) {
       console.log(err);
       res.send(400);
@@ -109,7 +111,7 @@ const UsersController = (app) => {
   app.get("/api/users/id/:id", findUserById);
   app.delete("/api/users/:id", deleteUserById);
   app.post("/api/users", createUser);
-  app.put("/api/users/:id", updateUser)
+  app.put("/api/users", updateUser)
   //other endpoints
   app.post("/api/users/login", login);
   app.post("/api/users/logout", logout);
