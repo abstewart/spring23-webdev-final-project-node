@@ -13,7 +13,7 @@ export const findAllLikes = async() => {
  * @param username to get parks liked by
  */
 export const parksLikedByUsername = async(username) => {
-  const parks = await parkLikesModel.find({username}, {park: 1});
+  const parks = await parkLikesModel.find({username}, {park: 1, park_name: 1});
   return parks;
 };
 /**
