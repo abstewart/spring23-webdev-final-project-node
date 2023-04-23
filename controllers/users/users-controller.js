@@ -13,10 +13,10 @@ const UsersController = (app) => {
       res.sendStatus(500);
     }
   };
-  const findUserById = async(req, res) => {
+  const findUserByUsername = async(req, res) => {
     console.log("findUserById called");
     try {
-      const user = usersDao.findUserById(req.params.id);
+      const user = usersDao.findUserByUsername(req.params.username);
       res.json(user);
     } catch (err) {
       console.log(err.message);
@@ -108,7 +108,7 @@ const UsersController = (app) => {
 
   //create endpoints
   app.get("/api/users", findAllusers);
-  app.get("/api/users/id/:id", findUserById);
+  app.get("/api/users/username/:username", findUserByUsername);
   app.delete("/api/users/:id", deleteUserById);
   app.post("/api/users", createUser);
   app.put("/api/users", updateUser)
