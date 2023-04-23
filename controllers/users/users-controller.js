@@ -46,6 +46,8 @@ const UsersController = (app) => {
   const updateUser = async(req, res) => {
     console.log("updateUser called");
     const user = req.body;
+    console.log(user);
+    console.log(req.params.id);
     try{
       const status = await usersDao.updateUser(req.params.id, user);
       res.send(status);
