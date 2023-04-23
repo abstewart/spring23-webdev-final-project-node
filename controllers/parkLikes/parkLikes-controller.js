@@ -81,7 +81,7 @@ const ParkLikesController = (app) => {
   const createParkLike = async (req, res) => {
     console.log("createParkLike called");
     const {username} = req.session.currentUser;
-    const pl = {username, park: req.params.park}
+    const pl = {username, park: req.params.parkId, park_name: req.params.park_name}
     try{
       const newLike = await parkLikesDao.createLike(pl);
       res.json(newLike);
@@ -99,6 +99,6 @@ const ParkLikesController = (app) => {
   app.get("/api/parkLikes/numUserLiked", numParksLikedByUser);
   app.delete("/api/parkLikes/:id", deleteParkLike);
   app.delete("/api/parkLikes/parkId/:park", deleteParkLikeByParams);
-  app.post("/api/parkLikes/:park", createParkLike);
+  app.post("/api/parkLikes/:parkId/:park_name", createParkLike);
 }
 export default ParkLikesController;
