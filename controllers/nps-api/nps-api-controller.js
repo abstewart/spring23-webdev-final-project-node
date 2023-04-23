@@ -16,7 +16,7 @@ const NpsApiController = (app) => {
   const RESPONSE_LIMIT = 25;
   //expecting parkId in the request url
   const getParkDetails = async (req, res) => {
-    console.log("getParkDetails");
+    console.log("getParkDetails for: " + req.params.parkId);
 
     const parkId = req.params.parkId;
     const response = await axios.get(`${API_BASE}/parks?parkCode=${parkId}&api_key=${API_KEY}`);
