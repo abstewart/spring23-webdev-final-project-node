@@ -5,18 +5,33 @@ import * as usersDao from './users-dao.js';
 const UsersController = (app) => {
   const findAllusers = async(req, res) => {
     console.log("findAllUsers called");
-    const users = await usersDao.findAllUsers();
-    res.json(users);
+    try {
+      const users = await usersDao.findAllUsers();
+      res.json(users);
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
   };
   const findUserById = async(req, res) => {
     console.log("findUserById called");
-    const user = usersDao.findUserById(req.params.id);
-    res.json(user);
+    try {
+      const user = usersDao.findUserById(req.params.id);
+      res.json(user);
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
   };
   const deleteUserById = async(req, res) => {
     console.log("deleteUserById called");
-    const status = await usersDao.deleteUser(req.params.id);
-    res.send(status);
+    try {
+      const status = await usersDao.deleteUser(req.params.id);
+      res.send(status);
+    } catch (err) {
+      console.log(err.message);
+      res.sendStatus(500);
+    }
   };
   const createUser = async(req, res) => {
     console.log("createUser called");
