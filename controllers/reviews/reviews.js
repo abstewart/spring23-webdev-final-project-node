@@ -1,5 +1,6 @@
 const ex_review = {
   parkId: "acad",
+  park_name: "Acadia National Park",
   author: "jsmith",
   rating: 7,
   summary: "Great starter park!",
