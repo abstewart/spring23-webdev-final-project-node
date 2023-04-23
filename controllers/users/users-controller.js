@@ -14,7 +14,7 @@ const UsersController = (app) => {
     }
   };
   const findUserByUsername = async(req, res) => {
-    console.log("findUserById called");
+    console.log("findUserByUsername called with: ", req.params.username);
     try {
       const user = usersDao.findUserByUsername(req.params.username);
       res.json(user);
