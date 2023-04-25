@@ -9,7 +9,8 @@ export  const findAllReviews = async () => {
 
 //find all the reviews for a specific park and sort by likes
 export const findReviewsByPark = async (parkId) => {
-  const reviews = await reviewsModel.find({parkId, hidden: {$ne: true}}).sort({likes : -1});
+  const reviews = await reviewsModel.find({parkId, hidden: {$ne: true}}).sort({creation_date : -1});
+  //const reviews = await reviewsModel.find({parkId});
   return reviews;
 };
 

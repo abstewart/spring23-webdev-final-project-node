@@ -12,9 +12,10 @@ const ReviewsController = (app) => {
     }
   }
   const findReviewsByPark = async (req, res) => {
-    console.log("findReviewsByPark called");
+    console.log("findReviewsByPark called with: " + req.params.parkId);
     try {
       const reviews = await reviewsDao.findReviewsByPark(req.params.parkId)
+      console.log("reviews: " + reviews);
       res.json(reviews);
     } catch (err) {
       console.log(err.message);
