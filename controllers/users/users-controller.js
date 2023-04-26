@@ -52,8 +52,8 @@ const UsersController = (app) => {
     console.log(userId);
     try{
       const status = await usersDao.updateUser(userId, user);
-      res.send(status);
       req.session.currentUser = {...req.session.currentUser, ...user};
+      res.send(status);
     } catch (err) {
       console.log(err);
       res.send(400);
